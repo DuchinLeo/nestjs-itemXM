@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:24:30
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-10 18:25:28
+ * @LastEditTime: 2020-08-11 11:06:20
  */
 import { Controller, Get, Render } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -17,7 +17,7 @@ export class ManagerController {
   @Get()
   @Render('admin/manager/index')
   index(): any {
-    console.log('process.env.NODE_ENV;', process.env.NODE_ENV);
+    // console.log('process.env.NODE_ENV;', process.env.NODE_ENV);
     return {};
   }
 

@@ -3,11 +3,11 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:23:58
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-06 18:48:43
+ * @LastEditTime: 2020-08-11 10:03:59
  */
 import { Controller, Get, Render } from '@nestjs/common';
 
-@Controller('admin')
+@Controller('admin/main')
 export class MainController {
   @Get()
   @Render('admin/main/index')
@@ -15,13 +15,9 @@ export class MainController {
     return {};
   }
 
-  @Get('add')
-  add(): any {
-    return '我是管理员页面';
-  }
-
-  @Get('edit')
-  edit(): any {
-    return '编辑';
+  @Get('welcome')
+  @Render('admin/main/welcome')
+  welcome(): any {
+    return {};
   }
 }

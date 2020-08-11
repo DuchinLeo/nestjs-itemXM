@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:18:13
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-10 18:30:20
+ * @LastEditTime: 2020-08-11 10:51:23
  */
 
 import { NestFactory } from '@nestjs/core';
@@ -17,10 +17,13 @@ import { ConfigModule } from './config/config';
 import { ConfigService } from './config/config';
 import { setupSwagger } from './swagger';
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    cors: true, // 设置跨站访问
-    logger: false,
-  });
+  const app = await NestFactory.create<NestExpressApplication>(
+    AppModule,
+    //   , {
+    //   cors: true, // 设置跨站访问
+    //   logger: false
+    // }
+  );
   //配置静态资源目录
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
   //配置模板引擎
@@ -28,14 +31,14 @@ async function bootstrap() {
   app.setBaseViewsDir(path.join(__dirname, '..', 'views'));
   app.setViewEngine('ejs');
   //配置cookie 中间件
-  app.use(cookieParser('thissignedcookies'));
+  app.use(cookieParser('this signed cookies'));
   //配置 session 的中间件
   app.use(
     session({
-      secret: 'keyboardcat',
+      secret: 'keyboard cat',
       resave: true,
       saveUninitialized: true,
-      cookie: { maxAge: 1000 * 60 * 30, httpOnly: true },
+      cookie: { maxAge: 219000, httpOnly: true },
       rolling: true,
     }),
   );
