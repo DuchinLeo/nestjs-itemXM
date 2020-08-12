@@ -3,23 +3,71 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:22:17
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-11 10:42:47
+ * @LastEditTime: 2020-08-11 22:18:07
  */
 import { Module } from '@nestjs/common';
 import { MainController } from './main/main.controller';
 import { LoginController } from './login/login.controller';
 import { ManagerController } from './manager/manager.controller';
+
+import { UserController } from './user/user.controller';
+
+// service
 import { ToolsService } from '../../service/tools/tools.service';
-// import { UserController } from './user/user.controller';
 import { UserService } from '../../service/user/user.service';
 import { ConfigService } from '../../config/config.service';
+import { AdminService } from '../../service/admin/admin.service';
+
+import { AdminSchema } from '../../schema/admin/admin.schema';
+import { ArticleSchema } from '../../schema/admin/article.schema';
+import { MongooseModule } from '@nestjs/mongoose';
+
 @Module({
+  // imports: [
+  //   // MongooseModule.forFeature([
+  //   //   { name: 'Admin', schema: AdminSchema, collection: 'admin' },
+  //   // ]),
+  //   // MongooseModule.forFeatureAsync([
+  //   //   {
+  //   //     name: 'Article',
+  //   //     useFactory: () => {
+  //   //       const schema = ArticleSchema;
+  //   //       return schema;
+  //   //     },
+  //   //     collection: 'article',
+  //   //   },
+  //   // ]),
+  // ],
+  // imports: [
+  //   MongooseModule.forFeature([
+  //     { name: 'Article', schema: ArticleSchema, collection: 'article' },
+  //     'localhost',
+  //   ]),
+  // ],
+  imports: [
+    MongooseModule.forFeature(
+      [
+        {
+          name: 'Article',
+          schema: ArticleSchema,
+          collection: 'article',
+        },
+        {
+          name: 'Admin',
+          schema: AdminSchema,
+          collection: 'admin',
+        },
+      ],
+      'localhost',
+    ),
+  ],
   controllers: [
     MainController,
     LoginController,
     ManagerController,
-    // UserController,
+    UserController,
   ],
-  providers: [ToolsService, UserService, ConfigService],
+  providers: [ToolsService, UserService, ConfigService, AdminService],
+  // exports: [AdminModule],
 })
 export class AdminModule {}

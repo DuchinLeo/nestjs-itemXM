@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-10 10:57:08
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-10 11:37:48
+ * @LastEditTime: 2020-08-11 17:41:14
  */
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -20,7 +20,7 @@ export const setupSwagger = (app: INestApplication) => {
     .setTitle(SWAGGER_API_NAME)
     // 使用nest书写的常用性接口 文档介绍
     .setDescription(SWAGGER_API_DESCRIPTION)
-    .setBasePath('api')
+    // .setBasePath('api')
     // 文档版本
     .setVersion(SWAGGER_API_CURRENT_VERSION)
     // .setSchemes(...SWAGGER_API_SCHEMES)
