@@ -3,32 +3,33 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:24:30
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-11 12:04:56
+ * @LastEditTime: 2020-08-12 18:16:50
  */
 import { Controller, Get, Render } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 // import { ConfigService } from '../../../config/config.service';
+import { Config } from '../../../config/config';
 
 @ApiTags('后台管理-管理员')
-@Controller('admin/manager')
+@Controller(`${Config.adminPath}/manager`)
 export class ManagerController {
   // constructor() {}
   // constructor(private readonly configService: ConfigService) {}
 
   @Get()
   @Render('admin/manager/index')
-  index(){
-      return {};
+  index() {
+    return {};
   }
   @Get('add')
   @Render('admin/manager/add')
-  add(){
+  add() {
     return {};
   }
 
   @Get('edit')
   @Render('admin/manager/edit')
-  edit(){
+  edit() {
     return {};
   }
 

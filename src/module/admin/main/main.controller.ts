@@ -3,12 +3,12 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:23:58
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-11 22:21:29
+ * @LastEditTime: 2020-08-12 18:16:18
  */
 import { Controller, Get, Render } from '@nestjs/common';
 import { AdminService } from '../../../service/admin/admin.service';
-
-@Controller('admin/main')
+import { Config } from '../../../config/config';
+@Controller(`${Config.adminPath}/main`)
 export class MainController {
   constructor(private adminService: AdminService) {}
 

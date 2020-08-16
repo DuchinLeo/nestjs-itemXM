@@ -1,9 +1,9 @@
 /*
  * @Description:
  * @Author: Duchin/梁达钦
- * @Date: 2020-08-06 16:34:36
+ * @Date: 2020-08-12 16:11:20
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-12 16:10:36
+ * @LastEditTime: 2020-08-12 16:11:27
  */
 export interface Admin {
   username?: string;

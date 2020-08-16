@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:18:13
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-11 22:27:09
+ * @LastEditTime: 2020-08-12 18:30:44
  */
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AdminModule } from './module/admin/admin.module';
@@ -12,6 +12,8 @@ import { ApiModule } from './module/api/api.module';
 import { ConfigModule, ConfigService } from './config/config';
 import { UserController } from './module/admin/user/user.controller';
 
+import { Config } from './config/config';
+
 import { UserService } from './service/user/user.service';
 // import { AdminService } from './service/admin/admin.service';
 
@@ -19,6 +21,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 // admin 中间件
 import { AdminauthMiddleware } from './middleware/adminauth/adminauth.middleware';
+import { InitMiddleware } from './middleware/init.middleware';
 
 @Module({
   imports: [
@@ -51,6 +54,11 @@ import { AdminauthMiddleware } from './middleware/adminauth/adminauth.middleware
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AdminauthMiddleware).forRoutes('admin/*');
+    consumer
+      .apply(AdminauthMiddleware)
+      .forRoutes(`${Config.adminPath}/*`)
+      // ejs模版配置
+      .apply(InitMiddleware)
+      .forRoutes('*');
   }
 }
