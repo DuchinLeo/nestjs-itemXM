@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:18:13
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-11 11:53:54
+ * @LastEditTime: 2020-08-18 17:59:17
  */
 
 import { NestFactory } from '@nestjs/core';
@@ -17,13 +17,12 @@ import { ConfigModule } from './config/config';
 import { ConfigService } from './config/config';
 import { setupSwagger } from './swagger';
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(
-    AppModule,
-    //   , {
-    //   cors: true, // 设置跨站访问
-    //   logger: false
-    // }
-  );
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true, // 设置跨站访问
+    // logger: false
+  });
+  // 处理跨域
+  app.enableCors();
   //配置静态资源目录
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
   //配置模板引擎
@@ -52,6 +51,6 @@ async function bootstrap() {
     setupSwagger(app);
   }
 
-  await app.listen(3000);
+  await app.listen(4000);
 }
 bootstrap();

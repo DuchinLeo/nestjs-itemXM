@@ -1,20 +1,17 @@
-<!--
- * @Description: 
- * @Author: Duchin/梁达钦
- * @Date: 2020-08-11 12:02:43
- * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-12 18:25:43
--->
 <nav class="navbar navbar-inverse" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <img src="/admin/images/node.jpg" height="44px;" />
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+            <img src="/admin/images/node.jpg" height="44px;" />
+
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">           
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您 <%=userinfo.username%></a>
+                </li>
+                <li><a href="/<%=config.adminPath%>/login/loginOut">安全退出</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse" id="example-navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a>欢迎您,<%=userinfo.username%></a></li>
-        <li><a href="/<%=config.adminPath%>/login/loginOut">安全退出</a></li>
-      </ul>
-    </div>
-  </div>
 </nav>

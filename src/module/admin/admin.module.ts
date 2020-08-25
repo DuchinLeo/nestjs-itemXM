@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:22:17
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-11 22:18:07
+ * @LastEditTime: 2020-08-16 17:48:33
  */
 import { Module } from '@nestjs/common';
 import { MainController } from './main/main.controller';
@@ -17,10 +17,14 @@ import { ToolsService } from '../../service/tools/tools.service';
 import { UserService } from '../../service/user/user.service';
 import { ConfigService } from '../../config/config.service';
 import { AdminService } from '../../service/admin/admin.service';
+import { RoleService } from '../../service/role/role.service';
 
 import { AdminSchema } from '../../schema/admin/admin.schema';
 import { ArticleSchema } from '../../schema/admin/article.schema';
+import { RoleSchema } from '../../schema/admin/role.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { RoleController } from './role/role.controller';
+import { AccessController } from './access/access.controller';
 
 @Module({
   // imports: [
@@ -57,6 +61,11 @@ import { MongooseModule } from '@nestjs/mongoose';
           schema: AdminSchema,
           collection: 'admin',
         },
+        {
+          name: 'Role',
+          schema: RoleSchema,
+          collection: 'role',
+        },
       ],
       'localhost',
     ),
@@ -66,8 +75,16 @@ import { MongooseModule } from '@nestjs/mongoose';
     LoginController,
     ManagerController,
     UserController,
+    RoleController,
+    AccessController,
   ],
-  providers: [ToolsService, UserService, ConfigService, AdminService],
+  providers: [
+    ToolsService,
+    UserService,
+    ConfigService,
+    AdminService,
+    RoleService,
+  ],
   // exports: [AdminModule],
 })
 export class AdminModule {}
