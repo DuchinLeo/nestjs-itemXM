@@ -3,19 +3,21 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-11 22:15:00
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-27 10:46:59
+ * @LastEditTime: 2020-08-27 14:35:32
  */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AdminInterface } from '../../interface/admin.interface';
 import { Config } from 'src/config/config';
 import { RoleAccessService } from '../role-access/role-access.service';
+import { AccessService } from '../access/access.service';
 @Injectable()
 export class AdminService {
   constructor(
     @InjectModel('Article') private articleModel,
     @InjectModel('Admin') private adminModel,
     private roleAccessService: RoleAccessService,
+    private accessService: AccessService,
   ) {}
 
   // 查询所有文章--测试
@@ -119,7 +121,10 @@ export class AdminService {
     if (
       userinfo.is_super === 1 ||
       pathNmae === 'login/loginOut' ||
-      pathNmae === 'main/welcome'
+      pathNmae === 'main/welcome' ||
+      pathNmae == 'main' ||
+      pathNmae == 'login' ||
+      pathNmae == 'login/doLogin'
     ) {
       return true;
     }
@@ -138,7 +143,7 @@ export class AdminService {
 
     // 3. 获取当前访问url对应的权限id
 
-    const accessResultTo = await this.roleAccessService.find({ url: pathNmae });
+    const accessResultTo = await this.accessService.find({ url: pathNmae });
 
     if (accessResultTo.length > 0) {
       // 4. 判断当前访问的url对应的权限id 是否在权限列表中的id中

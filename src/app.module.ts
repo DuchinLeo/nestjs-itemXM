@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:18:13
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-26 22:04:35
+ * @LastEditTime: 2020-08-27 21:28:01
  */
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AdminModule } from './module/admin/admin.module';
