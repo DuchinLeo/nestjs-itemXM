@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-11 17:00:34
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-11 17:28:40
+ * @LastEditTime: 2020-08-26 22:30:16
  */
 import * as mongoose from 'mongoose';
 
@@ -36,5 +36,6 @@ export const AdminSchema = new mongoose.Schema({
   },
   is_super: {
     type: Number,
+    default: 0,
   },
 });

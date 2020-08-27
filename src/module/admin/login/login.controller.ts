@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:24:09
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-12 18:30:05
+ * @LastEditTime: 2020-08-26 22:15:57
  */
 import {
   Controller,
@@ -29,6 +29,13 @@ export class LoginController {
   @Render('admin/login')
   async index() {
     // console.log(await this.adminService.finAdmin());
+    // await this.adminService.addAdminUser({
+    //   username: 'll',
+    //   password: '123456',
+    //   mobile: '18269052500',
+    //   email: '18269052500@1.com',
+    //   is_super: 0,
+    // });
     return {};
   }
 

@@ -3,16 +3,19 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-11 22:15:00
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-16 20:43:33
+ * @LastEditTime: 2020-08-27 10:46:59
  */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AdminInterface } from '../../interface/admin.interface';
+import { Config } from 'src/config/config';
+import { RoleAccessService } from '../role-access/role-access.service';
 @Injectable()
 export class AdminService {
   constructor(
     @InjectModel('Article') private articleModel,
     @InjectModel('Admin') private adminModel,
+    private roleAccessService: RoleAccessService,
   ) {}
 
   // 查询所有文章--测试
@@ -97,5 +100,57 @@ export class AdminService {
 
   getModel() {
     return this.adminModel;
+  }
+
+  async checkAuth(req) {
+    /*
+      1、获取当前用户的角色    （如果超级管理员跳过权限判断 is_super=1）
+      2、根据角色获取当前角色的权限列表                       
+      3、获取当前访问的url 对应的权限id
+      4、判断当前访问的url对应的权限id 是否在权限列表中的id中
+    */
+
+    const Vpathname: string = req.baseUrl;
+    // 去掉 Config.adminPath
+    const pathNmae = Vpathname.replace(`/${Config.adminPath}/`, '');
+
+    const userinfo = req.session.userinfo;
+    const role_id = userinfo.role_id;
+    if (
+      userinfo.is_super === 1 ||
+      pathNmae === 'login/loginOut' ||
+      pathNmae === 'main/welcome'
+    ) {
+      return true;
+    }
+
+    // 2、根据角色获取当前角色的权限列表
+    const accessResult = await this.roleAccessService.find({
+      role_id: role_id,
+    });
+    const roleAccessArray = [];
+    accessResult.forEach(val => {
+      roleAccessArray.push(val.access_id.toString());
+    });
+
+    console.log('中间件权限判断权限列表', roleAccessArray);
+    console.log('中间件权限判断权限的url', pathNmae);
+
+    // 3. 获取当前访问url对应的权限id
+
+    const accessResultTo = await this.roleAccessService.find({ url: pathNmae });
+
+    if (accessResultTo.length > 0) {
+      // 4. 判断当前访问的url对应的权限id 是否在权限列表中的id中
+      if (roleAccessArray.indexOf(accessResultTo[0]._id.toString()) !== -1) {
+        console.log('判断当前访问的url对应的权限id 是否在权限列表中的id中true');
+        return true;
+      }
+      console.log('判断当前访问的url对应的权限id 是否在权限列表中的id中false');
+      return false;
+    } else {
+      console.log('获取当前访问url对应的权限id, 数据为空false');
+      return false;
+    }
   }
 }
