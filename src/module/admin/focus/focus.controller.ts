@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-27 15:29:16
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-27 18:40:07
+ * @LastEditTime: 2020-08-27 22:07:44
  */
 import {
   Controller,
@@ -20,7 +20,6 @@ import { Config } from 'src/config/config';
 import { ToolsService } from 'src/service/tools/tools.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FocusService } from 'src/service/focus/focus.service';
-import { query } from 'express';
 
 @Controller(`${Config.adminPath}/focus`)
 export class FocusController {

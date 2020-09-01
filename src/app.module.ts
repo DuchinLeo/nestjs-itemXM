@@ -21,6 +21,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 // admin 中间件
 import { AdminauthMiddleware } from './middleware/adminauth/adminauth.middleware';
 import { InitMiddleware } from './middleware/init.middleware';
+import { ApiDownloadService } from './service/api-download/api-download.service';
 
 @Module({
   imports: [
@@ -48,7 +49,7 @@ import { InitMiddleware } from './middleware/init.middleware';
     }),
   ],
   controllers: [UserController],
-  providers: [ConfigService, UserService],
+  providers: [ConfigService, UserService, ApiDownloadService],
   // exports: [AdminService],
 })
 export class AppModule implements NestModule {

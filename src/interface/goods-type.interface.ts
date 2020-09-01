@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-27 21:29:53
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-27 21:31:39
+ * @LastEditTime: 2020-08-27 22:26:12
  */
 export interface GoodsTypeInterface {
   _id?: string;

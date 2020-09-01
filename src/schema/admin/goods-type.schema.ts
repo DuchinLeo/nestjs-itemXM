@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-27 21:32:20
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-27 21:37:12
+ * @LastEditTime: 2020-08-27 22:24:31
  */
 const d = new Date();
 import { Document } from 'mongoose';
@@ -28,4 +28,4 @@ export class GoodsType extends Document {
   add_time: number;
 }
 
-export const GoogdsTypeSchema = SchemaFactory.createForClass(GoodsType);
+export const GoodsTypeSchema = SchemaFactory.createForClass(GoodsType);
