@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:18:13
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-27 21:28:01
+ * @LastEditTime: 2020-09-02 15:35:45
  */
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AdminModule } from './module/admin/admin.module';
@@ -21,7 +21,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 // admin 中间件
 import { AdminauthMiddleware } from './middleware/adminauth/adminauth.middleware';
 import { InitMiddleware } from './middleware/init.middleware';
-import { ApiDownloadService } from './service/api-download/api-download.service';
 
 @Module({
   imports: [
@@ -49,7 +48,7 @@ import { ApiDownloadService } from './service/api-download/api-download.service'
     }),
   ],
   controllers: [UserController],
-  providers: [ConfigService, UserService, ApiDownloadService],
+  providers: [ConfigService, UserService],
   // exports: [AdminService],
 })
 export class AppModule implements NestModule {

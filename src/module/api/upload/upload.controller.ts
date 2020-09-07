@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-18 16:38:00
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-09-01 10:10:03
+ * @LastEditTime: 2020-09-01 10:31:58
  */
 import {
   Controller,
@@ -13,6 +13,7 @@ import {
   Body,
   UseInterceptors,
   UploadedFile,
+  Response,
 } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { createWriteStream, createReadStream } from 'fs';
