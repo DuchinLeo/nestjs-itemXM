@@ -3,11 +3,13 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-06 16:29:37
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-08-27 18:49:41
+ * @LastEditTime: 2020-10-18 17:44:31
  */
 import { Injectable } from '@nestjs/common';
 import * as svgCaptcha from 'svg-captcha';
 import * as MD5 from 'md5';
+import { createWriteStream,  readdir, stat } from 'fs';
+import * as path from 'path';
 // 日期格式化工具
 import { format } from 'silly-datetime';
 
@@ -17,7 +19,6 @@ import { Config } from '../../config/config';
 // 创建目录
 import * as mkdirp from 'mkdirp';
 
-import { createWriteStream } from 'fs';
 
 @Injectable()
 export class ToolsService {
@@ -91,5 +92,32 @@ export class ToolsService {
     } else {
       return '';
     }
+  }
+
+  async getFileDir(pathName: string) {
+    const fileArr = new Promise(resolve => {
+      readdir(pathName, function(err, files) {
+        const dirs = [];
+        function iterator(i) {
+          if (typeof files === "undefined") {
+            resolve([])
+            return
+          }
+          if (i == files.length) {
+            resolve(dirs);
+            return;
+          }
+          stat(path.join(pathName, files[i]), function(err, data) {
+            if (data.isFile()) {
+              dirs.push(files[i]);
+            }
+            iterator(i + 1);
+          });
+        }
+        const result = iterator(0);
+        return result;
+      });
+    });
+    return fileArr;
   }
 }

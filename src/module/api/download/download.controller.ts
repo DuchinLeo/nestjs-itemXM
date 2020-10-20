@@ -3,17 +3,19 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-09-01 10:06:10
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-09-07 14:53:43
+ * @LastEditTime: 2020-10-18 16:44:56
  */
 import { Controller, Get, Query, Post, Response, Body } from '@nestjs/common';
 import { ApiDownloadService } from 'src/service/api-download/api-download.service';
 import { createWriteStream, createReadStream, readdir, readFileSync } from 'fs';
 import { join } from 'path';
 import { query } from 'express';
+import { ToolsService } from 'src/service/tools/tools.service';
 
 @Controller('api/download')
 export class DownloadController {
-  constructor(private apiDownloadService: ApiDownloadService) {}
+  constructor(private apiDownloadService: ApiDownloadService,
+    private toolsService: ToolsService) {}
 
   @Get()
   index() {
@@ -25,7 +27,7 @@ export class DownloadController {
   async getFile(@Query() query) {
     const pathName = query.pathName;
     console.log('pathname', pathName);
-    const fileDirArr = await this.apiDownloadService.getFileDir(
+    const fileDirArr = await this.toolsService.getFileDir(
       join(__dirname, '../../../../public/upload', `${pathName}`),
     );
     console.log('fileDirArr', fileDirArr);

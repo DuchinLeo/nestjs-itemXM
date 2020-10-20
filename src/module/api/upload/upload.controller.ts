@@ -3,7 +3,7 @@
  * @Author: Duchin/梁达钦
  * @Date: 2020-08-18 16:38:00
  * @LastEditors: Duchin/梁达钦
- * @LastEditTime: 2020-09-01 10:31:58
+ * @LastEditTime: 2020-10-18 17:38:21
  */
 import {
   Controller,
@@ -32,9 +32,9 @@ export class UploadController {
 
   @Post('doAdd')
   @UseInterceptors(FileInterceptor('file'))
-  doAdd(@Body() body, @UploadedFile() file) {
-    console.log(body);
-    console.log(file);
+  doAdd(@Body() body, @UploadedFile() file, @Response() res) {
+    console.log('body', body);
+    console.log('file',body);
     const writeStream = createWriteStream(
       join(
         __dirname,
@@ -44,7 +44,9 @@ export class UploadController {
       ),
     );
     writeStream.write(file.buffer);
-    return '上传成功';
+    res.send({
+      msg: "上传成功"
+    })
   }
 
   @Get('one')
@@ -69,5 +71,21 @@ export class UploadController {
     // );
 
     // this.toolsService.successRedirect(res, `/${Config.adminPath}/focus`);
+  }
+
+  @Post("verify")
+  async verify(@Body() body, @Response() res) {
+    const fileHash = body.fileHash;
+    console.log('fileHash', fileHash);
+    const fileHashList = await this.toolsService.getFileDir(
+      join(__dirname, '../../../../public/upload', `${fileHash}`),
+    );
+    console.log('fileHashList', fileHashList);
+    res.send({
+      succeed: '获取成功',
+      data: {
+        fileHashList
+      }
+    })
   }
 }
